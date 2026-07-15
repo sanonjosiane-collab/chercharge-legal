@@ -1,0 +1,30 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+id_rsa
+id_ed25519
+secrets/
+credentials/
+**/Secrets.plist
+**/GoogleService-Info.plist
+
+# Credentials / keys
+*secret*
+*credentials*
+*.keystore
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Dependencies / build (none expected for static site)
+node_modules/
+.venv/
+__pycache__/
