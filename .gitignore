@@ -10,6 +10,9 @@ Chercharge/GoogleService-Info.plist
 # Tesla Fleet private keys (never commit)
 .tesla-keys/
 
+# Local backup of the former nested docs repository metadata
+.docs-git-backup/
+
 # macOS
 .DS_Store
 
