@@ -1,0 +1,2 @@
+-- SUPERSEDED by server_auto_approve_source_of_truth_paste.sql
+-- Paste that file instead (includes deadlines, approval_method, sweep, and schedule trigger).

@@ -1,0 +1,82 @@
+---
+description: Chercharge luxury design system and app-wide UI rules
+alwaysApply: true
+---
+
+# Chercharge design system
+
+Chercharge is a **SwiftUI iOS** EV concierge app. Prefer cream, forest emerald, and champagne gold — never purple gradients, neon glow spam, or generic AI “dashboard” layouts.
+
+## Brand palette
+- Ivory / cream backgrounds (`BookChargePalette.ivory`, `Brand.ivory`)
+- Deep emerald / forest green for primary surfaces and titles
+- Champagne gold for accents, badges, CTAs text, and progress
+- Soft muted gray-green for secondary copy
+
+## Typography
+- Serif for brand names, headlines, and primary CTA labels
+- Sans for captions, stats, and helper text
+- Gold italic serif for accent words in Book Charge titles (e.g. *charging?*, *grab*, *book*)
+
+## Botanical background
+- Use the transparent `HomeBotanicalFoliage` asset as a **watermark** on every screen **except Home** (Home keeps its own denser upper-right layout)
+- Dense layered leaves, soft sage/gold-green, low opacity, slight blur
+- Shared screens: `BrandBackground` and `ConciergeLuxeBackground` place foliage top-left + lower-right
+- Fan from the **upper right** behind headers when a screen owns a custom backdrop — not a single stem branch
+- Book Charge: warm radial wash behind foliage + mid-right cascade + lower-right wash (`BookChargeBackground`)
+- Reservations: cream wash + warm top/center glow + right-side foliage cascade (`ReservationsBackground`) — soft-focus Tesla peek on the left behind welcome
+- Vehicles / Live status / Add vehicle: cream parchment + dual-side foliage watermarks as documented below
+
+## Reservations tab
+- Header: bell (left, gold badge) · Chercharge logo lockup (center)
+- Welcome: emerald “Welcome,” + gold name; soft-focus Tesla peek on the left
+- Two white stationery cards: emerald/gold medallion rows, gold count badges, gold chevrons
+- Trust banner: emerald “Your EV. Our Care.” / “Secure. Insured. Reliable.” with shield, crown rule, Tesla crop, gold flare
+- **Do not change** `ConciergeFloatingTabBar` unless explicitly asked
+
+## Live status
+- Cream wash + warm top glow + `HomeBotanicalFoliage` upper-right and lower-right (`LiveStatusBackground`)
+- Header: Home pill (gold stroke) · Chercharge lockup · emerald profile medallion
+- Title “Live status” + subtitle + gold bead divider
+- Map: emerald route polyline, PICKUP / STATION callouts, live car pin, status pill on station
+- Timeline card: checkmarks for done, glowing active node + Review CTA when inspection awaits
+- When inspection is ready: Home presents `InspectionApprovalSheet` (quick look + Approve); pre-trip and post-trip/return both use a 15-second deadline (`customerApprovalWindow` / `returnApprovalDeadline`) via `BookingStore`, then auto-approve
+- Trip details card: gold icons, crown rule header, phone affordance on driver
+- Insured footer banner with shield + botanical watermark in the corner
+
+## Book a Charge steps
+- Shared chrome: `BookChargeBackground`, `BookChargeHeader`, `BookChargeProgress`, `BookChargeTitle`, `BookChargeContinueButton`
+- Progress: gold serif “STEP X OF Y LABEL”; active dot larger with gold glow; completed steps show checkmarks
+- Step 2 Vehicle: carousel card with SELECTED VEHICLE gold badge, studio car panel (cove light + CC logo), range confirmation card
+- Step 5 Review: white summary card — emerald/gold icon medallion, gold all-caps label, emerald serif value, gold “Edit >”; `BookChargeSecureBanner` below; PLACE REQUEST with perched crown + right arrow (`showsCrown: true`)
+- Selected location cards use emerald fill + gold accents; unselected use cream + thin gold stroke
+- Continue: emerald gradient, gold bolt left, tracked CONTINUE, gold chevron right (review uses crown + PLACE REQUEST instead)
+
+## Vehicles tab
+- Match the Vehicles tab mock: cream parchment canvas, champagne gold accents, forest emerald titles
+- Background: warm ivory/cream (not flat white) with faint gold-foil `HomeBotanicalFoliage` watermarks — **top-left** cluster and **mid-right** cascade (low opacity, soft blur). Soft parchment glow, not a solid single wash
+- Header (centered): small gold crown · large emerald serif “Vehicles” · gold italic serif subtitle “Your garage, curated for concierge service.” · gold ornament divider (rules + diamond)
+- Connect Tesla row: cream card, thin gold stroke, emerald/gold bolt medallion, emerald serif title, muted demo subtitle, gold chevron (or Disconnect when linked)
+- “Your garage” label: gold crown + gold serif title + gold rule extending to the trailing edge
+- Vehicle cards: cream fill, thin gold border, continuous corner radius; circular gold-ring thumbnail (registration photo or Tesla compositor); emerald serif display name; muted “Make Model · plate”; range + % with emerald icons; stacked edit (emerald/gold pencil) and delete (cream/gold/rust trash) medallions; card footer gold rule with centered Tesla “T” or crown/laurel seal
+- Info ribbon: cream bar, gold stroke, emerald “i” disc; muted range requirement + gold “N of 5 vehicles saved.”
+- Bottom CTA: emerald gradient capsule, metallic gold border with soft gold sparkle points, large centered gold serif “Add Vehicle” (no logo) + tiny gold diamond rule under the label; clear the floating tab bar (~110pt bottom padding)
+- **Do not change** `ConciergeFloatingTabBar` unless explicitly asked
+
+## Add / Register vehicle
+- Match the Register Your Vehicle mock: emerald quilted header, cream form body, champagne gold accents
+- Header: deep forest green with subtle diamond-quilt stitch overlay; gold-bordered Cancel pill (top left); centered crest / Chercharge logo; white serif title “Register Your Vehicle”; gold italic subtitle “Your chariot awaits.”; gold ornament divider (rules + diamond + flourishes)
+- Body background: warm ivory/cream with faint `HomeBotanicalFoliage` watermarks on **both** left and right edges (soft tan/sage, low opacity, slight blur) — not a flat single-color panel
+- Sections: short gold tick + thin gold line-art icon + emerald serif title (“The Vehicle”, “Registration”, “Exterior Finish”, “Smoking in Vehicle”, “Protection & Insurance”, “Official Documents”)
+- Smoking in Vehicle: subtitle “Does anyone smoke or vape inside this vehicle?” with No / Yes radio rows; stored on the vehicle and copied to `bookings.smoking_in_vehicle` on PLACE REQUEST so drivers see a smoke marker
+- Field groups: continuous cream cards, ~14–16pt corner radius, thin gold stroke, hairline gold row dividers; gold leading icons; placeholder-style labels
+- Registration photo: dashed gold square with document + camera affordance, “Add registration photo”, lock + “Securely protected”
+- Primary CTA: emerald gradient pill, gold crown + gold serif “Add to My Garage” (or “Save changes” when editing), gold border; footer lock + “Documents are securely protected”
+- Required fields remain: make, model, year, license plate, plate state, registration expiration, insurance company, insurance policy number, policy expiration, registration photo (insurance card photo optional)
+- Document approval: customer submissions go to admin review; registration photo + policy number are high priority; booking requires approved documents
+
+## Layout rules
+- Consistent horizontal padding (~20–24)
+- Soft continuous corner radii, light gold borders, restrained shadows
+- Do not change the floating tab bar unless explicitly asked
+- Match provided Face / mock images in detail when given

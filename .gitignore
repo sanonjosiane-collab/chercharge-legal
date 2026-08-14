@@ -1,30 +1,28 @@
-# Secrets and environment
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Secrets — copy from Secrets.example.plist
+Chercharge/Secrets.plist
+Chercharge/GoogleService-Info.plist
+
+# Tesla Fleet private keys (never commit)
+.tesla-keys/
+
+# macOS
+.DS_Store
+
+# Supabase
+supabase/.branches
+supabase/.temp
+
+# Private key files
+*.pem
 .env
 .env.*
-!.env.example
+
+# Private key files
 *.pem
-*.p12
-*.key
-id_rsa
-id_ed25519
-secrets/
-credentials/
-**/Secrets.plist
-**/GoogleService-Info.plist
-
-# Credentials / keys
-*secret*
-*credentials*
-*.keystore
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.swp
-
-# Dependencies / build (none expected for static site)
-node_modules/
-.venv/
-__pycache__/
+.env
+.env.*

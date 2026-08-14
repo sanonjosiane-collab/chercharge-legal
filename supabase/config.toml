@@ -1,0 +1,73 @@
+project_id = "chercharge"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15
+
+[auth]
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[functions.advance-booking]
+verify_jwt = true
+
+# Called with apikey only (sb_publishable_…); platform JWT verify does not accept new keys.
+[functions.create-payment-intent]
+verify_jwt = false
+
+[functions.submit-customer-vehicle-documents]
+verify_jwt = false
+
+[functions.create-customer-booking]
+verify_jwt = false
+
+# Invoked by DB trigger (pg_net) when an approval deadline is stamped.
+[functions.schedule-auto-approve]
+verify_jwt = false
+
+[functions.register-device-token]
+verify_jwt = false
+
+[functions.notify-booking-push]
+verify_jwt = false
+
+# Temporary Stripe secret diagnostics (no secret value returned).
+[functions.diagnose-stripe-key]
+verify_jwt = false
+
+[functions.get-preorder-status]
+verify_jwt = true
+
+[functions.create-preorder-payment]
+verify_jwt = true
+
+[functions.confirm-preorder]
+verify_jwt = true
+
+[functions.create-setup-intent]
+verify_jwt = true
+
+[functions.list-payment-methods]
+verify_jwt = true
+
+[functions.detach-payment-method]
+verify_jwt = true
+
+[functions.delete-account]
+verify_jwt = true
+
+# Stripe signs the request; no Supabase JWT. Create a LIVE webhook in Stripe Dashboard.
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.tesla-oauth-callback]
+verify_jwt = false
+
+# Called with apikey only (sb_publishable_…); authorize inside the function.
+[functions.tesla-oauth-exchange]
+verify_jwt = false
