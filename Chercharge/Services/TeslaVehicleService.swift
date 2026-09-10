@@ -97,7 +97,9 @@ enum TeslaVehicleService {
         index: Int
     ) -> Vehicle {
         let model = inferModel(from: item.vin ?? item.displayName ?? "")
-        let year = inferYear(from: item.vin) ?? Calendar.current.component(.year, from: Date())
+        // Prefer VIN model-year (position 10). Never fall back to "today" — that mislabels
+        // older cars (e.g. 2019 → 2026) when the year code isn't recognized.
+        let year = Self.modelYear(fromVIN: item.vin) ?? 2018
         let charge = detail?.chargeState?.batteryLevel ?? 50
         let range = Int(detail?.chargeState?.batteryRange ?? Double(max(80, charge * 2)))
         let name = item.displayName?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
@@ -143,14 +145,25 @@ enum TeslaVehicleService {
         return "Model 3"
     }
 
-    private static func inferYear(from vin: String?) -> Int? {
+    /// NHTSA model-year from VIN position 10.
+    /// Letters skip I, O, Q, U, Z. Codes cycle every 30 years; for Teslas we use the
+    /// 2010–2039 cycle for letters and 2001–2009 for digits (Roadster-era VINs).
+    static func modelYear(fromVIN vin: String?) -> Int? {
         guard let vin, vin.count >= 10 else { return nil }
-        // Rough model-year from VIN position 10 — best-effort only.
         let code = vin.uppercased()[vin.index(vin.startIndex, offsetBy: 9)]
-        let map: [Character: Int] = [
-            "L": 2020, "M": 2021, "N": 2022, "P": 2023, "R": 2024, "S": 2025, "T": 2026,
+        let letterMap: [Character: Int] = [
+            "A": 2010, "B": 2011, "C": 2012, "D": 2013, "E": 2014,
+            "F": 2015, "G": 2016, "H": 2017, "J": 2018, "K": 2019,
+            "L": 2020, "M": 2021, "N": 2022, "P": 2023, "R": 2024,
+            "S": 2025, "T": 2026, "V": 2027, "W": 2028, "X": 2029,
+            "Y": 2030,
         ]
-        return map[code]
+        if let year = letterMap[code] { return year }
+        // Digits 1–9 → 2001–2009 (prior cycle). Tesla Roadsters used 8/9.
+        if let digit = Int(String(code)), (1...9).contains(digit) {
+            return 2000 + digit
+        }
+        return nil
     }
 
     private static func uuidFromStableString(_ value: String) -> UUID {

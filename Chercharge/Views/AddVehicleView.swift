@@ -289,12 +289,13 @@ struct AddVehicleView: View {
                             }
                         }
                         RegisterRowDivider()
+                        // Year stays editable for Tesla-linked cars — VIN decoding is
+                        // best-effort and owners need to correct misses (e.g. pre-2020 codes).
                         registerTextRow(
                             icon: "calendar",
                             placeholder: "Year",
                             text: $yearText,
-                            keyboard: .numberPad,
-                            disabled: existing?.isTeslaLinked == true
+                            keyboard: .numberPad
                         )
                     }
                 }
